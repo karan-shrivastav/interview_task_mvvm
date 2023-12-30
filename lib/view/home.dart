@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:interview_task/view/widgets/card_details.dart';
 import 'package:interview_task/view_model/view_model.dart';
+
+import 'detail_screen.dart';
 
 class Home extends ConsumerWidget {
   const Home({
@@ -19,14 +22,13 @@ class Home extends ConsumerWidget {
           ? const Center(
               child: CircularProgressIndicator(),
             )
-          : ListView.builder(
+          : GridView.builder(
               itemCount: dataNotifier.dataList.length,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3),
               itemBuilder: (context, index) {
-                return Card(
-                  child: ListTile(
-                    title: Text(dataNotifier.dataList[index].name ?? ''),
-                    subtitle: Text(dataNotifier.dataList[index].lifeSpan ?? ''),
-                  ),
+                return CardDetails(
+                  data: dataNotifier.dataList[index],
                 );
               },
             ),
